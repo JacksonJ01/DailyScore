@@ -5,6 +5,7 @@ import calendar
 from random import randint
 import re
 import winsound
+from socket import gethostname
 
 
 def r(minimum, maximum):
@@ -77,6 +78,10 @@ def blue_bold(make_bold):
 
 def Search(check, existing):
     return re.search(r'^' + check, existing)
+
+
+def cur_comp():
+    return gethostname()
 
 
 def audio(sound=None):

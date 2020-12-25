@@ -53,7 +53,7 @@ def NewUser(location):  # The "location" parameter basically shows the user anot
         return NewUser(1)  # this utilizes the location parameter mentioned above
 
     print("\nNice to meet you {}".format(first_name) +
-          ", my name is \"Your Computer\"... "
+          f", my name is {under_bold(cur_comp())}... "
           "\nYou can call me \"Sir\" though")
     # s(2)
 
@@ -117,6 +117,11 @@ def NewUser(location):  # The "location" parameter basically shows the user anot
     if TaskManager.Task_Manager(tasks, 0) is False:  # tasks is a variable that has the value of the users task file and passes it in
         return NewUser(1)
     else:
+        print("\nLooks like you're all set"
+              "\nI will now take you to the \"Exisng User's\" menu"
+              "\nThe next time you log in your will have to do it manually"
+              "\nPlease Hold")
+        waiting(r(2,4))
         ExUser(fileName)
 
 

@@ -61,11 +61,11 @@ def ExUser(file_name=None):
             # open the file for reading and read the second line
 
             file = open(file_name)
-            name = file.readline()
-            pin = file.readline()
+            name = file.readline()[11:]
+            pin = file.readline()[12:]
 
             if Search(pinNum, pin):
-                print(f"\nWelcome back {name}\b!")
+                print(f"\nHey, welcome back {name}")
                 break
             else:
                 attempts -= 1
@@ -82,7 +82,7 @@ def ExUser(file_name=None):
 
     while True:
         menu = input("\nMenu"
-                     "\n1. Check-In"
+                     "\n1. Daily Check-In"
                      "\n2. Configure Tasks"
                      "\n3. Reset Bi-Weekly Period"
                      "\n4. Exit"
@@ -91,12 +91,15 @@ def ExUser(file_name=None):
         while True:
             try:
                 menu = int(menu)
-                if 0 < menu < 4:
+                if 0 < menu < 5:
                     break
                 else:
                     raise ValueError
             except ValueError:
-                menu = input("")
+                menu = input(f"Please Enter {bold(1)}, "
+                             f"{bold(2)}, "
+                             f"{bold(3)}, or "
+                             f"{bold(4)}")
 
         if menu == 1:
             # CHeck-in
@@ -116,4 +119,4 @@ def ExUser(file_name=None):
             return
 
 
-ExUser()  # "sirJack")
+# ExUser()

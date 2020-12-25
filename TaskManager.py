@@ -391,9 +391,9 @@ def Task_Manager(task_file, location=None):
                 elif str(numOfTask)[-1] == '3':
                     end = endings[2]
 
-                taskName = input(f"\nWhat is the {numOfTask}{end} task you want to add? "
+                taskName = input(f"\nWhat is the {numOfTask}{end} task you want to add?"
                                  f"\n(Any ':' characters will be replaced with '~')"
-                                 f"\n>>>").strip().replace(":","~")
+                                 f"\n>>>").strip().replace(":","~").capitalize()
 
                 taskPoints = input("\nHow many points is it worth?"
                                    "\n>>>")
