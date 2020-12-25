@@ -1,4 +1,7 @@
 >
+Checklist for me
+
+
 Create a program that will keep track of my score each day
 At the end of the week the program will tell me if I did better than the last week
 If they reach the weekly treshold they set, they will get the prize they set
@@ -7,7 +10,8 @@ The user will be able to create a new file and name it
 There will be a file holding the names of files to check if that file exists.
 The user can give the create as many tasks as they want and will be able to name them
     Each task will have the if no option, meaning if the task wasn't completed you can still get some points for sub tasks
-Each main task will have points assigned to them as well, and those points will be added to a list that will be used to find the maximum number of points per day
+Each main task will have points assigned to them as well,
+ and those points will be added to a list that will be used to find the maximum number of points per day
 The user can set a weekly point goal, and if they reach it, they get a prize, one that they set for themselves
 #
 If an existing user, the program will ask for the name of the file
@@ -27,4 +31,16 @@ If only a day has passed the program will ask you questions for the current day
                                         If not, they can't enter the data
 If you've missed a day you will be able to input data for both that day and the current day
 If you miss more than one day the program will put a zero in for all of the days you missed that week
+\<
+
+
+// I need to discuss:
+>
+What the program is for
+#
+How the program works
+#
+New User aspect
+#
+Existing User aspect
 \<

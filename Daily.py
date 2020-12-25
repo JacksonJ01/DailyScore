@@ -25,10 +25,10 @@ from Useful_Tools import *
 
 while True:
     menu = input("   " + under_bold("Main Menu") +
-                 "\n1. New User"
-                 "\n2. Existing User"
-                 "\n3. About Program"
-                 "\n4. Exit"
+                 f"\n1. {bold('New User')}"
+                 f"\n2. {bold('Existing User')}"
+                 f"\n3. {bold('About Program')}"
+                 f"\n4. {bold('Exit')}"
                  "\n>>>")
 
     while True:
@@ -72,3 +72,4 @@ while True:
                 print(about)
                 input("\nThat concludes the Information"
                       f"\n{bold('Press Enter To Return To The Main Menu')}\n")
+                break

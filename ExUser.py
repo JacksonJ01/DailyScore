@@ -103,7 +103,7 @@ def ExUser(file_name=None):
 
         if menu == 1:
             # CHeck-in
-            print("To be continued")
+            print("Work In Progress")
 
         elif menu == 2:
             # Task manager
@@ -113,7 +113,7 @@ def ExUser(file_name=None):
 
         elif menu == 3:
             # Reset period
-            print("To be continued")
+            print("Work In Progress")
 
         elif menu == 4:
             return

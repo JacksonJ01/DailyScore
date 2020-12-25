@@ -15,16 +15,18 @@ def Task_Manager(task_file, location=None):
         if location is None:
             menu = input(f"\n{under_bold('Menu')}"
                          f"\n1. {bold('View Tasks')}"
-                         f"\n2. {bold('Change Tasks')}"
-                         f"\n3. {bold('Update Goal and Prize')}"
-                         f"\n4. {bold('Create New Tasks')}"
-                         f"\n5. {bold('EXIT')}"
+                         f"\n2. {bold('Replace Tasks')}"
+                         f"\n3. {bold('Add Tasks')}"
+                         f"\n4. {bold('Delete Tasks')}"
+                         f"\n5. {bold('Update Goal and Prize')}"
+                         f"\n6. {bold('Create New Tasks')}"
+                         f"\n7. {bold('EXIT')}"
                          "\n>>>")
 
             while True:
                 try:
                     menu = int(menu)
-                    if 0 < menu < 6:
+                    if 0 < menu < 8:
                         break
                     else:
                         raise ValueError
@@ -33,12 +35,14 @@ def Task_Manager(task_file, location=None):
                                  f"{bold('1')}, "
                                  f"{bold('2')}, "
                                  f"{bold('3')}, "
-                                 f"{bold('4')}, or"
-                                 f"{bold('5')}"
+                                 f"{bold('4')}, "
+                                 f"{bold('5')}, "
+                                 f"{bold('6')}, or"
+                                 f"{bold('7')}"
                                  f"\n>>>")
 
         if location == 0:
-            menu = 4
+            menu = 6
 
         if menu == 1:  # Reads the task file
             print("View Tasks")
@@ -113,23 +117,8 @@ def Task_Manager(task_file, location=None):
 
             input("\nI will now ask you recite the number of the tasks you wish to change"
                   "\nPress Enter to continue")
+
             taskNum = []
-            # if change_tasks == 1:
-            #     adding = input("\nWhat is the number of the task you would you like change?"
-            #                    "\n>>>")
-            #     while True:
-            #
-            #         try:
-            #             adding = int(adding)
-            #             if count > adding > 0:
-            #                 taskNum.append(adding)
-            #                 break
-            #             else:
-            #                 raise ValueError
-            #         except ValueError:
-            #             adding = input("\nYou did not enter a number greater than 0 or below than your total task count"
-            #                            "\nPlease try again"
-            #                            "\n>>>")
             num = 0
             changing = change_tasks
             while changing != 0:
@@ -169,12 +158,6 @@ def Task_Manager(task_file, location=None):
                                        "\n>>>")
             taskNum.sort()
             taskNum.reverse()
-
-            #
-            # Make the program add the rest of the tasks if the user doesnt change all
-            # Take the counting and sub that from the count
-            # That way I can run a loop to add the rest
-            #
 
             file = open(task_file)
             update = ""
@@ -315,7 +298,15 @@ def Task_Manager(task_file, location=None):
             file.close()
             break
 
-        elif menu == 3:  # The task file will be read to display the goal and prize
+        # Adding Tasks to the file
+        elif menu == 3:
+            print("Work In Progress")
+
+        # Deleting Tasks from file
+        elif menu == 4:
+            print("Work In Progress")
+
+        elif menu == 5:  # The task file will be read to display the goal and prize
                          # They can then set a new goal and prize for themselves
                          # The variable will then save the rest of the text in the file
             print("Update Goal and Prize")
@@ -366,7 +357,7 @@ def Task_Manager(task_file, location=None):
             file.write(update)
             file.close()
 
-        elif menu == 4:  # A while loop will continue to ask the user these questions:
+        elif menu == 6:  # A while loop will continue to ask the user these questions:
                           # What task do you want to add
                           # How many points is it worth?
                           # Do you want to add another task?
@@ -490,7 +481,7 @@ def Task_Manager(task_file, location=None):
 
             return Task_Manager(task_file)
 
-        elif menu == 5:
+        elif menu == 7:
             return True
 
 
