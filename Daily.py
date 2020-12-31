@@ -3,18 +3,13 @@
 # Tasks:
 #  SMAJBLoL                                   10
 #  Wake up at 5:30 am                          5
-#    if no: wake up at 6 am                    3
-#      if no: why                              1
 #  Poop                                        2
 #  Brush teeth                                 1
 #  Workout                                    10
-#  Eat breakfast#                              3
+#  Eat breakfast                              3
 #  Shower                                      3
 #  Attend all classes for the day             10
-#    if no: attend most classes                5
-#      if no: why                              0
 #  Go to work On Time                          10
-#    if no: go to work "on time"               5
 #  Brush teeth                                 1
 #  Go to bed On Time                          10
 # Max Points:                                 65
@@ -46,14 +41,15 @@ while True:
                          "\n>>>")
 
     if menu == 4:
+        print(f"\nI, {cur_comp()}, wish you the best."
+              "\nThank you and have a good day!")
         quit()
 
     elif menu == 1:
         NewUser(0)
 
     elif menu == 2:
-        if ExUser() is False:
-            print("I'll take you back to the Menu")
+        ExUser()
 
     elif menu == 3:
         # make the program wait for input after each '#'

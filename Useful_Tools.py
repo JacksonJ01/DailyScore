@@ -27,6 +27,14 @@ def getM_D_Y_H_M():
     return datetime.now().strftime("%x at %H:%M")
 
 
+def getTime():
+    return datetime.now().strftime("%H:%M")
+
+
+def getDate():
+    return datetime.now().strftime("%x")
+
+
 def getDay():
     year = int(datetime.now().strftime("%Y"))
     month = int(datetime.now().strftime("%m"))
@@ -92,3 +100,9 @@ def audio(sound=None):
 
 
 # audio("Naruto.wav")
+
+# date = "Start Date: " + getDate()
+# print(date[12:14], date[15:17], date[18:])
+#
+# date1 = "Current Date: " + getDate()
+# print(date1[14:16], date1[17:19], date1[20:])

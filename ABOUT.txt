@@ -41,6 +41,9 @@ What the program is for
 How the program works
 #
 New User aspect
+Add the date
 #
 Existing User aspect
+If user configures task, also clear reset date
+Ask how many tasks the completed, then loop asking which and get the amount for the day
 \<

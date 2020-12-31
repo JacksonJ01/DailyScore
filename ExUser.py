@@ -66,7 +66,7 @@ def ExUser(file_name=None):
 
             if Search(pinNum, pin):
                 print(f"\nHey, welcome back {name}")
-                break
+                return ExUser(file_name)
             else:
                 attempts -= 1
                 if attempts > 0:
@@ -81,11 +81,11 @@ def ExUser(file_name=None):
                     return False
 
     while True:
-        menu = input("\nMenu"
-                     "\n1. Daily Check-In"
-                     "\n2. Configure Tasks"
-                     "\n3. Reset Bi-Weekly Period"
-                     "\n4. Exit"
+        menu = input(f"\n   {under_bold('Menu')}"
+                     f"\n1. {bold('Daily Check-In')}"
+                     f"\n2. {bold('Configure Tasks')}"
+                     f"\n3. {bold('Reset Bi-Weekly Period')}"
+                     f"\n4. {bold('Exit To the Main Menu')}"
                      "\n>>>")
 
         while True:
@@ -103,20 +103,91 @@ def ExUser(file_name=None):
 
         if menu == 1:
             # CHeck-in
-            print("Work In Progress")
+            print("\nWork In Progress")
+
+            file = open(file_name + "_Tasks".replace(".txt", '') + ".txt")
+            for i in range(0,4):
+                file.readline()
+
+            task = ''
+            total = 0
+            while not Search("#", task):
+                task = file.readline()
+                completed = input("\nDid you complete this task?"
+                                  f"\n{task}"
+                                  ""
+                                  "\n1. Yes"
+                                  "\n2. No"
+                                  ">>>")
+                while True:
+                    try:
+                        completed = int(completed)
+                        if completed == 1:
+                            temp = ''
+                            enter = 0
+                            for numbers in task:
+                                if numbers == ':' or 0 < enter:
+                                    enter += 1
+                                    temp = numbers
+                            print(temp)
+                            temp = temp.strip().replace(':','')
+                            try:
+                                temp = int(temp)
+                                total += temp
+                            except ValueError:
+                                print("\nSomething went wrong"
+                                      "\nTry again and contact the Admin if problem persists")
+                                ExUser(file_name)
+
+                        elif completed == 2:
+                            break
+                        else:
+                            raise ValueError
+                    except ValueError:
+                        completed = input("\nEnter {} for {}".format(bold('1'),bold('Yes')) +
+                                          "\nEnter {} for {}".format(bold('2'),bold('No')) +
+                                          "\n>>")
+            file.close()
+            print(f"\nYour total points for today is: {total}"
+                  f"\n")
+
 
         elif menu == 2:
             # Task manager
             file_name += "_Tasks.txt"
             print(file_name)
             Task_Manager(file_name)
+            print("\nI will now take you back to the Menu")
 
         elif menu == 3:
-            # Reset period
-            print("Work In Progress")
+            # Reset 2 week period
+            new = open(f"{file_name}")
+            name = new.readline()
+            first_name = name[11:17].strip()
+            last_name = name[17:].strip()
+            pin = new.readline()[12:]
+            new.close()
+
+            new = open(file_name, "w")
+            new.write("User Name: " + first_name + " " + last_name +
+                      "\nPin Number: " + str(pin) +
+                      "Start Date: " + getDate() +  # [12:14] [15:17] [18:]
+                      "\nCurrent Date: " + getDate() +  # [14:16] [17:19] [20:]
+                      ""
+                      "\n\nWEEK 1:"
+                      "\nWeek 1 Total: "  # [14:]
+                      ""
+                      "\n\nWEEK 2:"
+                      "\nWeek 2 total: "  # [14:]
+                      "\n#")
+            new.close()
+
+            print("\nYour file has been reset"
+                  "\nI will now take you back to the Menu")
 
         elif menu == 4:
+            print()
             return
 
 
-# ExUser()
+ExUser("sirJack.txt")

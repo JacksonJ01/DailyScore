@@ -13,7 +13,7 @@ def Task_Manager(task_file, location=None):
     menu = 0
     while True:
         if location is None:
-            menu = input(f"\n{under_bold('Menu')}"
+            menu = input(f"\n   {under_bold('Menu')}"
                          f"\n1. {bold('View Tasks')}"
                          f"\n2. {bold('Replace Tasks')}"
                          f"\n3. {bold('Add Tasks')}"
@@ -316,11 +316,11 @@ def Task_Manager(task_file, location=None):
             for pGT in range(1, 4):
 
                 if pGT == 1:
-                    print("Your current Prize is: {}".format(file.readline()[7:]))
+                    print("Your current Prize is: {}".format(file.readline()[7:]).strip())
                 elif pGT == 2:
-                    print(f"Your current Point Goal is: {file.readline()[12:]}")
+                    print(f"Your current Point Goal is: {file.readline()[12:].strip()}")
                 elif pGT == 3:
-                    total = int(file.readline()[19:])
+                    total = int(file.readline()[19:].strip())
                     print(f"Your current Total Task Points are: {total}")
 
             file.close()

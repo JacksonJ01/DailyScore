@@ -101,7 +101,17 @@ def NewUser(location):  # The "location" parameter basically shows the user anot
 
         if exists is False:  # This creates the main file and the task file then adds it to the list
             new = open(f"{fileName}.txt", 'w')
-            new.write("User Name: " + first_name + " " + last_name + "\nPin Number: " + str(pinNum))
+            new.write("User Name: " + first_name + " " + last_name +
+                      "\nPin Number: " + str(pinNum) +
+                      "\nStart Date: " + getDate() +  # [12:] [15:]
+                      "\nCurrent Date: " + getDate() +  # [14:]
+                      ""
+                      "\n\nWEEK 1:"
+                      "\nWeek 1 Total: "  # [14:]
+                      ""
+                      "\n\nWEEK 2:"
+                      "\nWeek 2 total: "  # [14:]
+                      "\n#")
             new.close()
 
             tasks = fileName + "_Tasks.txt"
