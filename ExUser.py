@@ -61,7 +61,7 @@ def ExUser(file_name=None):
             # open the file for reading and read the second line
 
             file = open(file_name)
-            name = file.readline()[11:]
+            name = file.readline()[11:].strip()
             pin = file.readline()[12:]
 
             if Search(pinNum, pin):
@@ -105,58 +105,21 @@ def ExUser(file_name=None):
             # CHeck-in
             print("\nWork In Progress")
 
-            # file = open(file_name.replace(".txt", '_Tasks.txt'))
-            # for i in range(0, 4):
-            #     file.readline()
-            #
-            # total = 0
-            # while True:
-            #     task = file.readline()
-            #     if Search("#", task):
-            #         break
-            #     completed = input("\nDid you complete this task today?"
-            #                       f"\n{task}"
-            #                       ""
-            #                       "\n1. Yes"
-            #                       "\n2. No"
-            #                       "\n>>>")
-            #     while True:
-            #         try:
-            #             completed = int(completed)
-            #             if completed == 1:
-            #                 temp = ''
-            #                 enter = 0
-            #                 for numbers in task:
-            #                     if numbers == ':' or 0 < enter:
-            #                         enter += 1
-            #                         temp += numbers
-            #                 temp = temp.replace(':', '').strip()
-            #                 try:
-            #                     temp = int(temp)
-            #                     total += temp
-            #                     break
-            #                 except ValueError:
-            #                     print("\nSomething went wrong"
-            #                           "\nTry again and contact the Admin if problem persists")
-            #                     ExUser(file_name)
-            #
-            #             elif completed == 2:
-            #                 break
-            #             else:
-            #                 raise ValueError
-            #         except ValueError:
-            #             completed = input("\nEnter {} for {}".format(bold('1'), bold('Yes')) +
-            #                               "\nEnter {} for {}".format(bold('2'), bold('No')) +
-            #                               "\n>>")
-            # file.close()
-            # print(f"\nYour total points for today is: {total}"
-            #       f"\n")
-
             file = open(file_name)
             count = 1
             while count <= 3:
                 file.readline()
                 count += 1
+
+            curr_date = file.readline()[14:]
+
+            if Search(getDate(), curr_date):
+                print("\nLooks like you've already completed a check-in for today"
+                      "\nCome back tommorow to log more points"
+                      "\n\nNow taking you to the Main Menu")
+                waiting(r(2, 3))
+                print()
+                return True
 
             date0 = getDate()
             month = int(date0[:2])
@@ -272,35 +235,50 @@ def ExUser(file_name=None):
                                           "\nEnter {} for {}".format(bold('2'), bold('No')) +
                                           "\n>>")
             file.close()
-            print(f"\nYour total points for today is: {total}"
-                  f"\n")
+            print(f"\nYour total points for today is: {total}")
             #
 
             file = open(file_name)
             update = ''
-            for x in range(0, 7):
-                update += file.readline()
+            for x in range(0, 8):
+                if x == 3:
+                    update += file.readline().strip() + " " + getDate() + "\n"
+                else:
+                    update += file.readline()
 
             if week1 is True and week2 is False:
                 update += "Week 1 Total: "
-                week1total = int(file.readline()[14:].strip()) + total
+                try:
+                    week1total = int(file.readline()[14:].strip()) + total
+                except ValueError:
+                    week1total = total
+
+                print(f"And your total points so far amount to: {week1total}")
 
                 update += str(week1total) + \
-                          "\n" \
-                          "\n" + file.readline() + \
-                          "\n" + file.readline() + \
-                          "\n" + file.readline() + \
-                          "\n" + file.readline() + \
-                          "\n#"
+                          "\n" + \
+                          file.readline() + \
+                          file.readline() + \
+                          file.readline() + \
+                          file.readline() + \
+                          "#"
 
             elif week2 is True:
                 week1 = file.readline()
-                week1total = int(week1[14:])
+                try:
+                    week1total = int(week1[14:].strip())
+                except ValueError:
+                    week1total = 0
 
                 update += week1 + \
                           "\n" \
                           "Week 2 Total: "
-                week2total = int(file.readline()[14:].strip()) + total
+                try:
+                    week2total = int(file.readline()[14:].strip()) + total
+                except ValueError:
+                    week2total = total
+
+                print(f"And your total points so far amount to: {week2total}")
 
                 if week1 is True:
                     winner = ''
@@ -326,6 +304,8 @@ def ExUser(file_name=None):
             file = open(file_name, 'w')
             file.write(update)
             file.close()
+
+            print("I will now take you back to the Menu")
 
         elif menu == 2:
             # Task manager
@@ -419,6 +399,7 @@ def ExUser(file_name=None):
             new = open(f"{file_name}", 'w')
             new.write("User Name: " + first_name + " " + last_name +
                       "\nPin Number: " + str(pin) +
+                      "\nCurrent Date: "  # [14:]
                       "\nStart Date: " + sdate +  # [12:14] [15:17] [18:]
                       "\nHalfway Point: " + week1 +  # [14:16] [17:19] [20:]
                       "\nEnd Date: " + edate +  # [10:12] [13:15] [16:]

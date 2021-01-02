@@ -46,4 +46,5 @@ Add the date
 Existing User aspect
 If user configures task, also clear reset date
 Ask how many tasks the completed, then loop asking which and get the amount for the day
+if they have already checked in for the day, do not let them enter more points
 \<

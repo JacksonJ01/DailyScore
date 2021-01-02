@@ -176,6 +176,7 @@ def NewUser(location):  # The "location" parameter basically shows the user anot
             new = open(f"{fileName}", 'w')
             new.write("User Name: " + first_name + " " + last_name +
                       "\nPin Number: " + str(pinNum) +
+                      "\nCurrent Date: "  # [14:]
                       "\nStart Date: " + sdate +  # # [12:14] [15:17] [18:]
                       "\nHalfway Point: " + week1 +
                       "\nEnd Date: " + edate +  # [10:12] [13:15] [16:]
