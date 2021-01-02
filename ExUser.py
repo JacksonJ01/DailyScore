@@ -159,9 +159,9 @@ def ExUser(file_name=None):
                 count += 1
 
             date0 = getDate()
-            month = int(date0[:3])
-            day = int(date0[4:6])
-            year = int(date0[7:9])
+            month = int(date0[:2])
+            day = int(date0[3:5])
+            year = int(date0[6:].strip())
 
             # start date
             date = file.readline()
@@ -171,9 +171,9 @@ def ExUser(file_name=None):
 
             # halfway point
             date1 = file.readline()
-            hmonth = int(date1[14:16])
-            hday = int(date1[17:19])
-            hyear = int(date1[20:].strip())
+            hmonth = int(date1[15:17])
+            hday = int(date1[18:20])
+            hyear = int(date1[21:].strip())
             week1 = False
 
             # end date
@@ -215,6 +215,7 @@ def ExUser(file_name=None):
                 # week 2 none
                 week2 = True
 
+            #
             else:  # will eventually do this automatically
                 print("\nIt seems you have gone past your 2 week interval"
                       "\nYou will have to reset your bi-weekly period"
@@ -403,6 +404,15 @@ def ExUser(file_name=None):
                     month = 1
                     year += 1
 
+            if len(str(month)) == 1:
+                month = "0" + str(month)
+            if len(str(month1)) == 1:
+                month1 = '0' + str(month1)
+            if len(str(day)) == 1:
+                day = "0" + str(day)
+            if len(str(day1)) == 1:
+                day1 = "0" + str(day1)
+
             week1 = str(month1) + "/" + str(day1) + "/" + str(year1)
             edate = str(month) + "/" + str(day) + "/" + str(year)
 
@@ -410,7 +420,7 @@ def ExUser(file_name=None):
             new.write("User Name: " + first_name + " " + last_name +
                       "\nPin Number: " + str(pin) +
                       "\nStart Date: " + sdate +  # [12:14] [15:17] [18:]
-                      "\nHalway Point: " + week1 +  # [14:16] [17:19] [20:]
+                      "\nHalfway Point: " + week1 +  # [14:16] [17:19] [20:]
                       "\nEnd Date: " + edate +  # [10:12] [13:15] [16:]
                       "\n"
                       "\nWeek 1 Total: "  # [14:]

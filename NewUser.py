@@ -161,6 +161,15 @@ def NewUser(location):  # The "location" parameter basically shows the user anot
                     month = 1
                     year += 1
 
+            if len(str(month)) == 1:
+                month = "0" + str(month)
+            if len(str(month1)) == 1:
+                month1 = '0' + str(month1)
+            if len(str(day)) == 1:
+                day = "0" + str(day)
+            if len(str(day1)) == 1:
+                day1 = "0" + str(day1)
+
             week1 = str(month1) + "/" + str(day1) + "/" + str(year1)
             edate = str(month) + "/" + str(day) + "/" + str(year)
 
@@ -168,7 +177,7 @@ def NewUser(location):  # The "location" parameter basically shows the user anot
             new.write("User Name: " + first_name + " " + last_name +
                       "\nPin Number: " + str(pinNum) +
                       "\nStart Date: " + sdate +  # # [12:14] [15:17] [18:]
-                      "\nHalway Point: " + week1 +
+                      "\nHalfway Point: " + week1 +
                       "\nEnd Date: " + edate +  # [10:12] [13:15] [16:]
                       "\n"
                       "\nWeek 1 Total: "  # [14:]
