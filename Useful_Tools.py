@@ -104,5 +104,8 @@ def audio(sound=None):
 # date = "Start Date: " + getDate()
 # print(date[12:14], date[15:17], date[18:])
 #
-# date1 = "Current Date: " + getDate()
-# print(date1[14:16], date1[17:19], date1[20:])
+# date1 = "End Date: " + getDate()
+# print(date1[10:12], date1[13:15], date1[16:])
+
+# da = getDate()
+# print(da[:1])

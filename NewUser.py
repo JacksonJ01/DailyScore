@@ -100,17 +100,82 @@ def NewUser(location):  # The "location" parameter basically shows the user anot
                 break
 
         if exists is False:  # This creates the main file and the task file then adds it to the list
-            new = open(f"{fileName}.txt", 'w')
+            sdate = getDate()
+
+            month = int(sdate[:2])
+            month1 = int(sdate[:2])
+            day = int(sdate[3:5])
+            day1 = day + 6
+            day += 13
+            year = int(sdate[6:].strip())
+            year1 = int(sdate[6:].strip())
+            thirtydays = [2, 4, 6, 9, 11]
+            thirtyonedays = [1, 3, 5, 7, 8, 10, 12]
+
+            if month in thirtydays:  # check if 2020, 2024, 2028...
+                if day1 >= 30 and month != 2:
+                    day1 -= 30
+                    day -= 30
+                    month += 1
+                    month1 += 1
+
+                elif day >= 30 and month != 2:
+                    day -= 30
+                    month += 1
+
+                elif month == 2:
+                    isleap = int(year / 4)
+                    if (isleap * 4) == year:
+                        if day1 >= 29:
+                            day1 -= 29
+                            day -= 29
+                            month += 1
+                            month1 += 1
+
+                        elif day1 >= 29:
+                            day -= 29
+                            month += 1
+
+                    else:
+                        if day1 >= 28:
+                            day1 -= 28
+                            day -= 28
+                            month += 1
+                            month1 += 1
+
+                        if day >= 28:
+                            day -= 28
+                            month += 1
+
+            elif month in thirtyonedays:
+                if day1 >= 31:
+                    day1 -= 31
+                    day -= 31
+                    month = 1
+                    month1 += 1
+                    year += 1
+                    year1 += 1
+
+                elif day >= 31:
+                    day -= 31
+                    month = 1
+                    year += 1
+
+            week1 = str(month1) + "/" + str(day1) + "/" + str(year1)
+            edate = str(month) + "/" + str(day) + "/" + str(year)
+
+            new = open(f"{fileName}", 'w')
             new.write("User Name: " + first_name + " " + last_name +
                       "\nPin Number: " + str(pinNum) +
-                      "\nStart Date: " + getDate() +  # [12:] [15:]
-                      "\nCurrent Date: " + getDate() +  # [14:]
-                      ""
-                      "\n\nWEEK 1:"
+                      "\nStart Date: " + sdate +  # # [12:14] [15:17] [18:]
+                      "\nHalway Point: " + week1 +
+                      "\nEnd Date: " + edate +  # [10:12] [13:15] [16:]
+                      "\n"
                       "\nWeek 1 Total: "  # [14:]
-                      ""
-                      "\n\nWEEK 2:"
+                      "\n"
                       "\nWeek 2 total: "  # [14:]
+                      "\n"
+                      "\nWinning Week: "  # [14:]
                       "\n#")
             new.close()
 
