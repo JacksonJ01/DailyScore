@@ -1,4 +1,5 @@
 from Useful_Tools import *
+from ResetMainFileFunct import resetMain
 
 
 def Task_Manager(task_file, location=None):
@@ -10,10 +11,12 @@ def Task_Manager(task_file, location=None):
               "\nWe will have to start over")
         return False
 
+    file_name = f"{task_file}".replace("_Tasks", "")
+
     menu = 0
     while True:
         if location is None:
-            menu = input(f"\n   {under_bold('Menu')}"
+            menu = input(f"\n   {under_bold('Task Menu')}"
                          f"\n1. {bold('View Tasks')}"
                          f"\n2. {bold('Replace Tasks')}"
                          f"\n3. {bold('Add Tasks')}"
@@ -85,14 +88,14 @@ def Task_Manager(task_file, location=None):
                     elif change_tasks == count:
                         change = input("\nIt seems as though you would like you change every one of your tasks."
                                        "\nWould you like to:"
-                                       f"\n1. {bold('Create New Tasks')} using the previous Menu"
+                                       f"\n1. {bold('Create New Tasks')} using the Task Menu"
                                        f"\n2. {bold('Continue')}"
                                        f"\n>>>")
                         while True:
                             try:
                                 change = int(change)
                                 if change == 1:
-                                    print("\nUnderstood. I will now take you to the previous Menu")
+                                    print("\nUnderstood. I will now take you to the Task Menu")
                                     waiting(r(2,3))
                                     return Task_Manager(task_file)
                                 elif change == 2:
@@ -301,9 +304,11 @@ def Task_Manager(task_file, location=None):
         # Adding Tasks to the file
         elif menu == 3:
             print("Work In Progress")
+            resetMain(file_name)
 
         # Deleting Tasks from file
         elif menu == 4:
+            resetMain(file_name)
             print("Work In Progress")
 
         elif menu == 5:  # The task file will be read to display the goal and prize
@@ -357,12 +362,33 @@ def Task_Manager(task_file, location=None):
             file.write(update)
             file.close()
 
-        elif menu == 6:  # A while loop will continue to ask the user these questions:
-                          # What task do you want to add
-                          # How many points is it worth?
-                          # Do you want to add another task?
-                         # Asks for the goal and the prize
+         # A while loop will continue to ask the user these questions:
+          # What task do you want to add
+          # How many points is it worth?
+          # Do you want to add another task?
+         # Asks for the goal and the prize
+        elif menu == 6:
             print("Create Tasks")
+
+            stop = input("\nDoing this will reset your current weekly progress"
+                         "\nDo you wish to continue?"
+                         "\n1. Yes"
+                         "\n2. No"
+                         "\n>>>")
+
+            while True:
+                try:
+                    stop = int(stop)
+                    if 0 < stop < 3:
+                        if stop == 2:
+                            print(f"Okay, I will take you back to the {bold('Task Menu')}")
+                            Task_Manager(task_file)
+                        else:
+                            break
+                    else:
+                        raise ValueError
+                except ValueError:
+                    stop = input()
 
             newTasks = ''
             totalTaskPoints = 0
@@ -474,6 +500,8 @@ def Task_Manager(task_file, location=None):
 
             print(f"\nThis is what your Task file looks like at the moment:\n"
                   f"\n{newTasks}")
+
+            resetMain(file_name)
 
             print("_" * 50 +
                   "\nYou will now be taken back to the {}".format(bold("Task Menu")) +

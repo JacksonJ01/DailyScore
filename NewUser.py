@@ -55,7 +55,7 @@ def NewUser(location):  # The "location" parameter basically shows the user anot
     print("\nNice to meet you {}".format(first_name) +
           f", my name is {under_bold(cur_comp())}... "
           "\nYou can call me \"Sir\" though")
-    # s(2)
+    s(2)
 
     pinNum = input("What would you like your 4 digit Pin Number to be?"
                    "\n>>>")
@@ -88,12 +88,14 @@ def NewUser(location):  # The "location" parameter basically shows the user anot
         fileName = input("What do you want to name your file?"
                          "\n>>>")
 
+        fileName = f'{fileName}'.replace('.txt', '') + ".txt"
+
         exists = False
         # The loop below checks the main file for any other files that have the same name as the one the user entered
         # exists is a boolean that starts out false, but if something matches it changes to True
         # The loop then breaks and once the if statement sees exist is not False that while loop above runs again#
         for file in kingFile.readlines():
-            if Search(file, fileName):
+            if Search(fileName, file):
                 kingFile.close()
                 print("Sorry, that file name already exists, try again\n")
                 exists = True
@@ -176,6 +178,7 @@ def NewUser(location):  # The "location" parameter basically shows the user anot
             new = open(f"{fileName}", 'w')
             new.write("User Name: " + first_name + " " + last_name +
                       "\nPin Number: " + str(pinNum) +
+                      "\n"
                       "\nCurrent Date: "  # [14:]
                       "\nStart Date: " + sdate +  # # [12:14] [15:17] [18:]
                       "\nHalfway Point: " + week1 +
@@ -189,12 +192,12 @@ def NewUser(location):  # The "location" parameter basically shows the user anot
                       "\n#")
             new.close()
 
-            tasks = fileName + "_Tasks.txt"
+            tasks = fileName.replace('.txt', "_Tasks.txt")
             task_file = open(tasks, 'w')
             task_file.close()
 
             kingFile = open(fh, 'a')
-            kingFile.write(f"\n{fileName}.txt"
+            kingFile.write(f"\n{fileName}"
                            f"\n{tasks}\n")
             kingFile.close()
             break

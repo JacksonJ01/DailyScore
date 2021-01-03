@@ -1,5 +1,6 @@
 from Useful_Tools import *
 from TaskManager import Task_Manager
+from ResetMainFileFunct import resetMain
 
 
 def ExUser(file_name=None):
@@ -81,11 +82,12 @@ def ExUser(file_name=None):
                     return False
 
     while True:
-        menu = input(f"\n   {under_bold('Menu')}"
-                     f"\n1. {bold('Daily Check-In')}"
-                     f"\n2. {bold('Configure Tasks')}"
-                     f"\n3. {bold('Reset Bi-Weekly Period')}"
-                     f"\n4. {bold('Exit To the Main Menu')}"
+        menu = input(f"\n   {under_bold('User Menu')}"
+                     f"\n1. {bold('View User File')}"
+                     f"\n2. {bold('Daily Check-In')}"
+                     f"\n3. {bold('Configure Tasks')}"
+                     f"\n4. {bold('Reset Bi-Weekly Period')}"
+                     f"\n5. {bold('Exit To the Main Menu')}"
                      "\n>>>")
 
         while True:
@@ -98,12 +100,19 @@ def ExUser(file_name=None):
             except ValueError:
                 menu = input(f"Please Enter {bold(1)}, "
                              f"{bold(2)}, "
-                             f"{bold(3)}, or "
-                             f"{bold(4)}")
+                             f"{bold(3)}, "
+                             f"{bold(4)}, or "
+                             f"{bold(5)}")
 
         if menu == 1:
+            print("\nThis is what your User file looks like at the moment:"
+                  f"\n{open(file_name).read()}")
+
+            input("\nPress Enter To Return To The User Menu")
+            waiting(r(2, 3))
+
+        elif menu == 2:
             # CHeck-in
-            print("\nWork In Progress")
 
             file = open(file_name)
             count = 1
@@ -116,10 +125,10 @@ def ExUser(file_name=None):
             if Search(getDate(), curr_date):
                 print("\nLooks like you've already completed a check-in for today"
                       "\nCome back tommorow to log more points"
-                      "\n\nNow taking you to the Main Menu")
+                      "\n\nNow taking you to the User Menu")
                 waiting(r(2, 3))
-                print()
-                return True
+
+                return ExUser(file_name)
 
             date0 = getDate()
             month = int(date0[:2])
@@ -182,7 +191,7 @@ def ExUser(file_name=None):
             else:  # will eventually do this automatically
                 print("\nIt seems you have gone past your 2 week interval"
                       "\nYou will have to reset your bi-weekly period"
-                      f"\nTo do this, enter 3 on the {bold('previous Menu')}")
+                      f"\nTo do this, enter 3 on the {bold('User Menu')}")
                 return ExUser(file_name)
 
             if month == emonth and day == eday and year == eyear:
@@ -305,118 +314,31 @@ def ExUser(file_name=None):
             file.write(update)
             file.close()
 
-            print("I will now take you back to the Menu")
-
-        elif menu == 2:
-            # Task manager
-            file_name += "_Tasks.txt"
-            print(file_name)
-            Task_Manager(file_name)
-            print("\nI will now take you back to the Menu")
+            print("I will now take you back to the User Menu")
+            waiting(r(2, 3))
 
         elif menu == 3:
-            # Reset 2 week period
+            # Task manager
 
-            new = open(f"{file_name}")
-            name = new.readline()
-            first_name = name[11:17].strip()
-            last_name = name[17:].strip()
-            pin = new.readline()[12:]
-            new.close()
-            sdate = getDate()
+            file_name = f"{file_name}".replace(".txt", '') + "_Tasks.txt"
+            print(file_name)
+            Task_Manager(file_name)
 
-            month = int(sdate[:2])
-            month1 = int(sdate[:2])
-            day = int(sdate[3:5])
-            day1 = day + 6
-            day += 13
-            year = int(sdate[6:].strip())
-            year1 = int(sdate[6:].strip())
-            thirtydays = [2, 4, 6, 9, 11]
-            thirtyonedays = [1, 3, 5, 7, 8, 10, 12]
-
-            if month in thirtydays:  # check if 2020, 2024, 2028...
-                if day1 >= 30 and month != 2:
-                    day1 -= 30
-                    day -= 30
-                    month += 1
-                    month1 += 1
-
-                elif day >= 30 and month != 2:
-                    day -= 30
-                    month += 1
-
-                elif month == 2:
-                    isleap = int(year / 4)
-                    if (isleap * 4) == year:
-                        if day1 >= 29:
-                            day1 -= 29
-                            day -= 29
-                            month += 1
-                            month1 += 1
-
-                        elif day1 >= 29:
-                            day -= 29
-                            month += 1
-
-                    else:
-                        if day1 >= 28:
-                            day1 -= 28
-                            day -= 28
-                            month += 1
-                            month1 += 1
-
-                        if day >= 28:
-                            day -= 28
-                            month += 1
-
-            elif month in thirtyonedays:
-                if day1 >= 31:
-                    day1 -= 31
-                    day -= 31
-                    month = 1
-                    month1 += 1
-                    year += 1
-                    year1 += 1
-
-                elif day >= 31:
-                    day -= 31
-                    month = 1
-                    year += 1
-
-            if len(str(month)) == 1:
-                month = "0" + str(month)
-            if len(str(month1)) == 1:
-                month1 = '0' + str(month1)
-            if len(str(day)) == 1:
-                day = "0" + str(day)
-            if len(str(day1)) == 1:
-                day1 = "0" + str(day1)
-
-            week1 = str(month1) + "/" + str(day1) + "/" + str(year1)
-            edate = str(month) + "/" + str(day) + "/" + str(year)
-
-            new = open(f"{file_name}", 'w')
-            new.write("User Name: " + first_name + " " + last_name +
-                      "\nPin Number: " + str(pin) +
-                      "\nCurrent Date: "  # [14:]
-                      "\nStart Date: " + sdate +  # [12:14] [15:17] [18:]
-                      "\nHalfway Point: " + week1 +  # [14:16] [17:19] [20:]
-                      "\nEnd Date: " + edate +  # [10:12] [13:15] [16:]
-                      "\n"
-                      "\nWeek 1 Total: "  # [14:]
-                      "\n"
-                      "\nWeek 2 total: "  # [14:]
-                      "\n"
-                      "\nWinning Week: "  # [14:]
-                      "\n#")
-            new.close()
-
-            print("\nYour file has been reset"
-                  "\nI will now take you back to the Menu")
+            print("\nI will now take you back to the User Menu")
+            waiting(r(2, 3))
 
         elif menu == 4:
-            print()
+            # Reset 2 week period
+
+            resetMain(file_name)
+
+            print("\nYour file has been reset"
+                  "\nI will now take you back to the User Menu")
+            waiting(r(2, 3))
+
+        elif menu == 5:
+            print("I will now tale you back to the Main Menu")
+            waiting(r(2, 3))
             return
 
 
