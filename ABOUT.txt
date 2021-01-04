@@ -48,3 +48,20 @@ If user configures task, also clear reset date
 Ask how many tasks the completed, then loop asking which and get the amount for the day
 if they have already checked in for the day, do not let them enter more points
 \<
+
+Prize: Happy Boi
+Point Goal: 80
+Total Task Points: 100
+
+1. Show Some Love: 20
+2. Wake up at 5~30 am: 20
+3. Poop: 6
+4. Brush teeth: 3
+5. Workout: 10
+6. Eat breakfast: 5
+7. Shower: 3
+8. Attend all classes for the day/ Do work personal work: 10
+9. Go to work On Time/ Do personal work: 10
+10. Brush teeth: 3
+11. Go to bed On Time: 10
+#

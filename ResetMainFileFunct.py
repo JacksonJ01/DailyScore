@@ -3,10 +3,20 @@ from Useful_Tools import *
 
 def resetMain(file_name):
     new = open(f"{file_name}")
-    name = new.readline()
-    first_name = name[11:17].strip()
-    last_name = name[17:].strip()
-    pin = new.readline()[12:]
+
+    name = new.readline()[11:].strip()
+    first_name = ""
+    last_name = ""
+    fN = True
+    for nme in name:
+        if name == " ":
+            fN = False
+        elif fN is True:
+            first_name += nme
+        else:
+            last_name += nme
+
+    pin = new.readline()[12:].strip()
     new.close()
     sdate = getDate()
 
@@ -84,6 +94,7 @@ def resetMain(file_name):
     new = open(f"{file_name}", 'w')
     new.write("User Name: " + first_name + " " + last_name +
               "\nPin Number: " + str(pin) +
+              "\n"
               "\nCurrent Date: "  # [14:]
               "\nStart Date: " + sdate +  # [12:14] [15:17] [18:]
               "\nHalfway Point: " + week1 +  # [14:16] [17:19] [20:]

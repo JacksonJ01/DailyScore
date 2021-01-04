@@ -1,19 +1,4 @@
 # Jackson J
-
-# Tasks:
-#  SMAJBLoL                                   10
-#  Wake up at 5:30 am                          5
-#  Poop                                        2
-#  Brush teeth                                 1
-#  Workout                                    10
-#  Eat breakfast                              3
-#  Shower                                      3
-#  Attend all classes for the day             10
-#  Go to work On Time                          10
-#  Brush teeth                                 1
-#  Go to bed On Time                          10
-# Max Points:                                 65
-
 from NewUser import NewUser
 from ExUser import ExUser
 from Useful_Tools import *
@@ -42,7 +27,8 @@ while True:
 
     if menu == 4:
         print(f"\nI, {cur_comp()}, wish you the best."
-              "\nThank you and have a good day!")
+              "\nThank you for stopping by"
+              "\nHave a good day!")
         quit()
 
     elif menu == 1:

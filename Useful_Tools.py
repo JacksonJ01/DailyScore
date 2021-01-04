@@ -63,25 +63,25 @@ class Fonts:
     green = '\033[92m'
     yellow = '\033[93m'
     red = '\033[91m'
-    bold = '\033[1m'
+    start = '\033[1m'
     underline = '\033[4m'
     end = '\033[0m'
 
 
 def bold(make_bold):
-    return f"{Fonts.bold}{make_bold}{Fonts.end}"
+    return f"{Fonts.start}{make_bold}{Fonts.end}"
 
 
 def red_bold(make_bold):
-    return f"{Fonts.bold}{Fonts.red}{make_bold}{Fonts.end}"
+    return f"{Fonts.start}{Fonts.red}{make_bold}{Fonts.end}"
 
 
 def under_bold(make_bold):
-    return f"{Fonts.bold}{Fonts.underline}{make_bold}{Fonts.end}"
+    return f"{Fonts.start}{Fonts.underline}{make_bold}{Fonts.end}"
 
 
 def blue_bold(make_bold):
-    return f"{Fonts.bold}{Fonts.blue }{make_bold}{Fonts.end}"
+    return f"{Fonts.start}{Fonts.blue }{make_bold}{Fonts.end}"
 
 
 def Search(check, existing):

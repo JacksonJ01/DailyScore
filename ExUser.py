@@ -93,7 +93,7 @@ def ExUser(file_name=None):
         while True:
             try:
                 menu = int(menu)
-                if 0 < menu < 5:
+                if 0 < menu < 6:
                     break
                 else:
                     raise ValueError
@@ -105,8 +105,8 @@ def ExUser(file_name=None):
                              f"{bold(5)}")
 
         if menu == 1:
-            print("\nThis is what your User file looks like at the moment:"
-                  f"\n{open(file_name).read()}")
+            print("\nThis is what your User file looks like at the moment:\n"
+                  f"\n{open(file_name).read().strip()}")
 
             input("\nPress Enter To Return To The User Menu")
             waiting(r(2, 3))
@@ -321,7 +321,6 @@ def ExUser(file_name=None):
             # Task manager
 
             file_name = f"{file_name}".replace(".txt", '') + "_Tasks.txt"
-            print(file_name)
             Task_Manager(file_name)
 
             print("\nI will now take you back to the User Menu")
@@ -337,9 +336,10 @@ def ExUser(file_name=None):
             waiting(r(2, 3))
 
         elif menu == 5:
-            print("I will now tale you back to the Main Menu")
+            print("\nI will now take you back to the Main Menu")
             waiting(r(2, 3))
+            print()
             return
 
 
-ExUser("sirJack.txt")
+ExUser("sirjack.txt")
