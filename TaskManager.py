@@ -1,5 +1,5 @@
 from Useful_Tools import *
-# from ResetMainFileFunct import resetMain
+from ResetMainFileFunct import resetMain
 
 
 def Task_Manager(task_file, location=None):
@@ -11,7 +11,7 @@ def Task_Manager(task_file, location=None):
               "\nWe will have to start over")
         return False
 
-    # file_name = f"{task_file}".replace("_Tasks", "")
+    file_name = f"{task_file}".replace("_Tasks", "")
 
     menu = 0
     while True:
@@ -149,13 +149,15 @@ def Task_Manager(task_file, location=None):
             taskNum = []
             num = 0
             changing = change_tasks
-            while changing != 0:
-                if num == 0:
+            while 0 < changing:
+                if changing == 1 and num == 0:
+                    adding = input("\nWhat is the number of the task you would you like change?"
+                                   "\n>>>")
+                elif num == 0:
                     adding = input("\nWhat is the number of the first task you would you like change?"
                                    "\n>>>")
                     num += 1
                 else:
-                    print(changing)
                     adding = input("\nWhat is the number of the next task you would you like change?"
                                    "\n>>>")
                     num += 1
@@ -210,7 +212,7 @@ def Task_Manager(task_file, location=None):
                         print(f"\nYour current task for number {taskNum[-1]} is:"
                               f"\n{task}")
                         change = input("What would you like to change the task description too?"
-                                       "\n>>>").capitalize()
+                                       "\n>>>").capitalize().replace(":", "~")
 
                         change_amount = input("\nAnd what is the amount for that task?"
                                               "\n>>>")
@@ -381,7 +383,7 @@ def Task_Manager(task_file, location=None):
                         value = input(f"Please enter a {bold('number')}"
                                       f"\n>>>")
 
-                update += f"{count}. {task}: {value}\n"
+                update += f"{count}. {task.replace(':', '~')}: {value}\n"
 
             new = input(f"\nYour current Point Goal is: {goal}"
                             f"\nYour new Total Task Points is: {total}"
@@ -445,13 +447,12 @@ def Task_Manager(task_file, location=None):
             # store the numbers in a list, the sort and reverse the list for popping
             # have a 2 global counters (both -4 default: count & counters) to keep track of the line number while it iterates,
             #  as well as a means of reseting the task numbers:
-            #   indx = int(len(str(count)))
-            #   "update += f"{(counter)}.{file.readline()[(indx + 1):]}"
             #  each time the loop goes check if the line equals the desired removal
             #   and if the number is equal, the counter will not increase #
 
             count = 0
-            counter = -4
+            lineNum = 1
+            new_count = 1
 
             files = open(task_file)
             prize = files.readline().strip()
@@ -490,17 +491,20 @@ def Task_Manager(task_file, location=None):
                 while True:
                     if i == 0 and 1 == delete:
                         number = input(f"\nWhat is the {bold('number')} of the task you wish to delete?"
-                                       "\n>>>").capitalize()
+                                       "\n>>>")
                     elif i == 0 and 1 < delete:
                         number = input(f"\nWhat is the {bold('number')} of the {bold('first')} task you wish to delete?"
-                                       "\n>>>").capitalize()
+                                       "\n>>>")
+                    elif 1 < delete and i == (delete - 1):
+                        number = input(f"\nWhat is the {bold('number')} of the {bold('last')} task you wish to delete?"
+                                       "\n>>>")
                     else:
                         number = input(f"\nWhat is the {bold('number')} of the {bold('next')} task you wish to delete?"
-                                       "\n>>>").capitalize()
+                                       "\n>>>")
 
                     try:
                         number = int(number)
-                        if 0 < number < count and number not in deleting:
+                        if 0 < number <= count and number not in deleting:
                             deleting.append(number)
                             break
                         if number in deleting:
@@ -509,18 +513,131 @@ def Task_Manager(task_file, location=None):
                             raise ValueError
 
                     except ValueError:
-                        print(f"Please enter a {bold('number')} between {bold('0')} and your total tasks {bold('')}"
+                        print(f"\nPlease enter a {bold('number')} between {bold('0')} and your total tasks {bold('')}"
                               f"\nTry again"
                               f"\n")
 
                     except ZeroDivisionError:
-                        print(f"\nThe number you just entered: {bold('number')}, has {bold('already')} been entered"
+                        print(f"\nThe number you just entered: {bold(number)}, has {bold('already')} been entered"
                               f"\nTry again"
                               f"\n")
 
             deleting.sort()
             deleting.reverse()
-            print(deleting)
+
+            files = open(task_file)
+            for i in range(0, 4):
+                files.readline()
+
+            update = ''
+            sub = ''
+            done = False
+            for file in files.readlines():
+                if done is True:
+                    if Search("#", file):
+                        break
+                    update += f"{new_count}. {file[(int(len(str(lineNum))) + 2):].strip()}\n"
+                    new_count += 1
+                    lineNum += 1
+
+                elif deleting[-1] == lineNum:
+                    deleting.pop()
+                    val = 0
+                    for value in file:
+                        if value == ':' or 0 < val:
+                            sub += value
+                            val += 1
+                    sub = int(sub.replace(":", "").strip())
+                    total -= sub
+                    sub = ''
+
+                else:
+                    update += f"{new_count}. {file[(int(len(str(lineNum))) + 2):].strip()}\n"
+                    new_count += 1
+
+                try:
+                    done = deleting[-1] + 0
+                except IndexError:
+                    done = True
+
+                lineNum += 1
+
+            files.close()
+
+            print(f"\nThe desired tasks have been deleted"
+                  f"\nYour Total Task Points has been reduced to {bold(total)}")
+
+            if goal > total:
+                newGoal = input(f"\nAnd as it stands now, your current Point Goal is {bold(goal)}"
+                                f"\nYou must enter a new Point Goal to continue"
+                                f"\n>>>")
+                while True:
+                    try:
+                        goal = int(newGoal)
+                        if 0 < goal <= total:
+                            break
+                        else:
+                            raise ValueError
+
+                    except ValueError:
+                        newGoal = input(f"\nPlease enter a {bold('number')} between {bold('0')} and your Total Task Points of {bold(total)}"
+                                        "\n")
+
+            else:
+                new = input(f"\nYour current Point Goal is still below this new total, sitting at {bold(goal)}"
+                            "\nWould you like to change it?"
+                            "\n"
+                            "\n1. Yes"
+                            "\n2. No"
+                            "\n>>>")
+
+                while True:
+                    try:
+                        new = int(new)
+
+                        if new == 1:
+                            newGoal = input("\nWhat would you like to change your Point Goal to?"
+                                            "\n>>>")
+
+                            while True:
+                                try:
+                                    goal = int(newGoal)
+                                    if 0 < goal <= total:
+                                        break
+                                    else:
+                                        raise ValueError
+
+                                except ValueError:
+                                    newGoal = input(f"\nPlease enter a {bold('number')} between 0 and {total}"
+                                                    f"\n>>>")
+
+                            break
+
+                        elif new == 2:
+                            print("\nOkay, moving on")
+                            break
+
+                        else:
+                            raise ValueError
+
+                    except ValueError:
+                        new = input("Please enter:"
+                                    f"\n{bold('1')} if you would like you change your Point Goal"
+                                    f"\n{bold('2')} if you would like to keep your current Point Goal")
+
+            update = f"{prize}" \
+                     f"\nPoint Goal: {goal}" \
+                     f"\nTotal Task Points: {total}" \
+                     f"\n" \
+                     f"\n{update}" \
+                     f"#"
+
+            print("\nThis is what your file looks like at the moment:"
+                  "\n\n" + update)
+
+            file = open(task_file, 'w')
+            file.write(update)
+            file.close()
 
         elif menu == 5:  # The task file will be read to display the goal and prize
                          # They can then set a new goal and prize for themselves
@@ -601,7 +718,7 @@ def Task_Manager(task_file, location=None):
 
                 taskName = input(f"\nWhat is the {numOfTask}{end} task you want to add?"
                                  f"\n(Any ':' characters will be replaced with '~')"
-                                 f"\n>>>").strip().replace(":","~").capitalize()
+                                 f"\n>>>").strip().replace(":", "~").capitalize()
 
                 taskPoints = input("\nHow many points is it worth?"
                                    "\n>>>")
@@ -702,9 +819,9 @@ def Task_Manager(task_file, location=None):
             return True
 
         if menu == 2 or menu == 3 or menu == 4 or menu == 6:
-            print("I will remove later")
-            # resetMain(file_name)
-            # print("\nYour User File has now been reset"
-            #       "\nNow taking you beck to the Task Menu")
+            resetMain(file_name)
+            print("\nYour User File has now been reset"
+                  "\nNow taking you beck to the Task Menu")
 
-# Task_Manager("sirJack_Tasks.txt")
+
+Task_Manager("sirJack_Tasks.txt")
