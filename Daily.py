@@ -1,7 +1,7 @@
 # Jackson J
 from NewUser import NewUser
 from ExUser import ExUser
-from Useful_Tools import *
+from Useful_Tools import bold, under_bold, cur_comp
 
 while True:
     menu = input("   " + under_bold("Main Menu") +

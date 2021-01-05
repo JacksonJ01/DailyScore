@@ -100,12 +100,3 @@ def audio(sound=None):
 
 
 # audio("Naruto.wav")
-
-# date = "Start Date: " + getDate()
-# print(date[12:14], date[15:17], date[18:])
-#
-# date1 = "End Date: " + getDate()
-# print(date1[10:12], date1[13:15], date1[16:])
-
-# da = getDate()
-# print(da[:1])

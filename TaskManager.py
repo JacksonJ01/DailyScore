@@ -822,6 +822,3 @@ def Task_Manager(task_file, location=None):
             resetMain(file_name)
             print("\nYour User File has now been reset"
                   "\nNow taking you beck to the Task Menu")
-
-
-Task_Manager("bigBoi_Tasks.txt")

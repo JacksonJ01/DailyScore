@@ -211,6 +211,3 @@ def NewUser(location):  # The "location" parameter basically shows the user anot
               "\nPlease Hold")
         waiting(r(2,4))
         ExUser(fileName)
-
-
-# NewUser(0)

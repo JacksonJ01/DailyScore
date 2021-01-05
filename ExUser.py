@@ -340,6 +340,3 @@ def ExUser(file_name=None):
             waiting(r(2, 3))
             print()
             return
-
-
-# ExUser("bigboi.txt")
