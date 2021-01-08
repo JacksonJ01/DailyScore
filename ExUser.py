@@ -98,11 +98,12 @@ def ExUser(file_name=None):
                 else:
                     raise ValueError
             except ValueError:
-                menu = input(f"Please Enter {bold(1)}, "
+                menu = input(f"\nPlease Enter {bold(1)}, "
                              f"{bold(2)}, "
                              f"{bold(3)}, "
                              f"{bold(4)}, or "
-                             f"{bold(5)}")
+                             f"{bold(5)}"
+                             "\n>>>")
 
         if menu == 1:
             print("\nThis is what your User file looks like at the moment:\n"
@@ -245,7 +246,7 @@ def ExUser(file_name=None):
                                           "\n>>")
             file.close()
             print(f"\nYour total points for today is: {total}")
-            #
+            # check the total variable against the point goal
 
             file = open(file_name)
             update = ''

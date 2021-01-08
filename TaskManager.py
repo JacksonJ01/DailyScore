@@ -47,7 +47,7 @@ def Task_Manager(task_file, location=None):
         if location == 0:
             menu = 6
 
-        if menu == 2 or menu == 3 or menu == 4 or menu == 6:
+        if menu == 2 or menu == 3 or menu == 4 or menu == 6 and location != 0:
             stop = input("\nDoing this will reset your current weekly progress"
                          "\nDo you wish to continue?"
                          "\n1. Yes"
@@ -90,7 +90,7 @@ def Task_Manager(task_file, location=None):
             count = -4
             print("Change Tasks")
             file = open(task_file)
-            print("Here is what your task file looks like:\n")
+            print(f"{bold('Here is what your task file looks like:')}\n")
             print(file.read())
             file.close()
 
@@ -143,7 +143,7 @@ def Task_Manager(task_file, location=None):
                                          "\nPlease enter a lower number, one that is greater than 0"
                                          "\n>>>")
 
-            input("\nI will now ask you recite the number of the tasks you wish to change"
+            input("\nI will now ask you recite the number of the task(s) you wish to change"
                   "\nPress Enter to continue")
 
             taskNum = []
@@ -202,11 +202,11 @@ def Task_Manager(task_file, location=None):
                 try:
                     task = file.readline()
                     if counting == 1:
-                        prize = task[0:19]
+                        prize = task.strip()
                     elif counting == 2:
-                        goal = int(task[12:])
+                        goal = int(task[12:].strip())
                     elif counting == 3:
-                        total = int(task[19:])
+                        total = int(task[19:].strip())
 
                     if Search(str(taskNum[-1]), task):
                         print(f"\nYour current task for number {taskNum[-1]} is:"
@@ -264,7 +264,7 @@ def Task_Manager(task_file, location=None):
                         update += file.readline()
                         sub -= 1
 
-                    input("\nAlright, that does it for the task section."
+                    input("\nAlright, that does it for the task section"
                           "\nPress Enter to continue")
                     break
 
@@ -315,10 +315,10 @@ def Task_Manager(task_file, location=None):
                                      "\n>>>")
 
             update = f"{prize}" \
-                     f"Point Goal: {goal}" \
+                     f"\nPoint Goal: {goal}" \
                      f"\nTotal Task Points: {total}" \
                      f"\n{update}"
-            print(f'\n{bold("This is your new task file:")}\n' +
+            print(f'\n{bold("This is your new task file:")}\n\n' +
                   update)
             input("Press Enter To Continue\n")
             file = open(task_file, "w")
